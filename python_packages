@@ -1,0 +1,194 @@
+1) seaborn: statistical data visualization
+
+basic program:-
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# Initialize Figure and Axes object
+fig, ax = plt.subplots()
+
+# Load in data
+tips = pd.read_csv("https://raw.githubusercontent.com/mwaskom/seaborn-data/master/tips.csv")
+
+# Create violinplot
+ax.violinplot(tips["total_bill"], vert=False)
+
+# Show the plot
+plt.show()
+
+
+
+2) Statsmodels
+basic program:-
+
+import numpy as np
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
+dat = sm.datasets.get_rdataset("Guerry", "HistData").data
+results = smf.ols('Lottery ~ Literacy + np.log(Pop1831)', data=dat).fit()
+print(results.summary())
+
+
+
+3) BeautifulSoap
+basic p[rogram:-
+
+from bs4 import BeautifulSoup
+import urllib.request
+response = urllib.request.urlopen('http://php.net/')
+html = response.read()
+soup = BeautifulSoup(html,"html5lib")
+text = soup.get_text(strip=True)
+print (text)
+
+
+
+4) NLTK
+basic program:-
+from nltk.tokenize import word_tokenize
+text = "God is Great! I won a lottery."
+print(word_tokenize(text))
+
+5)Theano
+program:-
+import theano 
+from theano import tensor 
+  
+# Declaring variables 
+a = tensor.dscalar() 
+b = tensor.dscalar() 
+  
+# Subtracting  
+res = a - b 
+# Converting it to a callable object  
+# so that it takes matrix as parameters 
+func = theano.function([a, b], res) 
+  
+# Calling function 
+assert 20.0 == func(30.5, 10.5) 
+
+6)keras:-
+
+from keras.models import Sequential
+from keras.layers import Dense, Activation
+
+model = Sequential()
+model.add(Dense(64, activation='relu', input_dim=50)) #input shape of 50
+model.add(Dense(28, activation='relu')) #input shape of 50
+model.add(Dense(10, activation='softmax'))
+
+
+7) pytorch:-
+import numpy as np
+
+# numpy array
+array = [[1,2,3],[4,5,6]]
+first_array = np.array(array) # 2x3 array
+print("Array Type: {}".format(type(first_array))) # type
+print("Array Shape: {}".format(np.shape(first_array))) # shape
+print(first_array)
+import torch
+
+# pytorch array
+tensor = torch.Tensor(array)
+print("Array Type: {}".format(tensor.type)) # type
+print("Array Shape: {}".format(tensor.shape)) # shape
+print(tensor)
+
+8)SciKit-Learn
+# Create a Randomized PCA model that takes two components
+randomized_pca = RandomizedPCA(n_components=2)
+
+# Fit and transform the data to the model
+reduced_data_rpca = randomized_pca.fit_transform(digits.data)
+
+# Create a regular PCA model 
+pca = PCA(n_components=2)
+
+# Fit and transform the data to the model
+reduced_data_pca = pca.fit_transform(digits.data)
+
+# Inspect the shape
+reduced_data_pca.shape
+
+# Print out the data
+print(reduced_data_rpca)
+print(reduced_data_pca)
+
+9)  Tensorflow
+import tensorflow as tf 
+  
+# creating nodes in computation graph 
+node1 = tf.constant(3, dtype=tf.int32) 
+node2 = tf.constant(5, dtype=tf.int32) 
+node3 = tf.add(node1, node2) 
+  
+# create tensorflow session object 
+sess = tf.Session() 
+  
+# evaluating node3 and printing the result 
+print("Sum of node1 and node2 is:",sess.run(node3)) 
+  
+# closing the session 
+sess.close()
+
+10)OpenCV
+
+import cv2  
+  
+# load the required trained XML classifiers 
+# https://github.com/Itseez/opencv/blob/master/ 
+# data/haarcascades/haarcascade_frontalface_default.xml 
+# Trained XML classifiers describes some features of some 
+# object we want to detect a cascade function is trained 
+# from a lot of positive(faces) and negative(non-faces) 
+# images. 
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml') 
+  
+# https://github.com/Itseez/opencv/blob/master 
+# /data/haarcascades/haarcascade_eye.xml 
+# Trained XML file for detecting eyes 
+eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')  
+  
+# capture frames from a camera 
+cap = cv2.VideoCapture(0) 
+  
+# loop runs if capturing has been initialized. 
+while 1:  
+  
+    # reads frames from a camera 
+    ret, img = cap.read()  
+  
+    # convert to gray scale of each frames 
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) 
+  
+    # Detects faces of different sizes in the input image 
+    faces = face_cascade.detectMultiScale(gray, 1.3, 5) 
+  
+    for (x,y,w,h) in faces: 
+        # To draw a rectangle in a face  
+        cv2.rectangle(img,(x,y),(x+w,y+h),(255,255,0),2)  
+        roi_gray = gray[y:y+h, x:x+w] 
+        roi_color = img[y:y+h, x:x+w] 
+  
+        # Detects eyes of different sizes in the input image 
+        eyes = eye_cascade.detectMultiScale(roi_gray)  
+  
+        #To draw a rectangle in eyes 
+        for (ex,ey,ew,eh) in eyes: 
+            cv2.rectangle(roi_color,(ex,ey),(ex+ew,ey+eh),(0,127,255),2) 
+  
+    # Display an image in a window 
+    cv2.imshow('img',img) 
+  
+    # Wait for Esc key to stop 
+    k = cv2.waitKey(30) & 0xff
+    if k == 27: 
+        break
+  
+# Close the window 
+cap.release() 
+  
+# De-allocate any associated memory usage 
+cv2.destroyAllWindows()
